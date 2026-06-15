@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你的靈魂課題是什麼?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+  :root {
+    --navy:   #0a0b1e;
+    --white:  #ffffff;
+    --gold:   #d4a843;
+    --gold-l: #f0cc7a;
+    --silver: #c8d0e8;
+    --lavend: #b8a8e0;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  #stars-canvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 0; }
+  section { position: relative; z-index: 1; }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px 40px; text-align: center; }
+  .hero-title { font-family: 'Noto Serif TC', serif; font-size: clamp(32px, 8vw, 64px); font-weight: 900; line-height: 1.2; letter-spacing: 2px; margin-bottom: 20px; }
+  .hero-title .line2 { display: block; background: linear-gradient(135deg, #00d4ff, var(--lavend), var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .pick-section { padding: 80px 24px; display: flex; flex-direction: column; align-items: center; }
+  .cards-row { display: flex; gap: 20px; justify-content: center; width: 100%; max-width: 700px; }
+  .tarot-card { width: 150px; cursor: pointer; transition: transform 0.3s; }
+  .tarot-card:hover { transform: translateY(-10px); }
+  .card-back { background: linear-gradient(145deg, #1a0e3a, #0d1a4a); border: 2px solid var(--gold); border-radius: 16px; padding: 40px 0; text-align: center; font-size: 40px; font-weight: bold; color: var(--gold); }
+
+  .answer-section { padding: 0 24px 80px; max-width: 720px; margin: 0 auto; display: none; }
+  .answer-section.visible { display: block; }
+  .answer-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212,168,67,0.3); border-radius: 20px; padding: 30px; line-height: 1.8; color: var(--silver); }
+  .answer-card h2 { color: var(--gold); margin-bottom: 15px; }
+  .answer-card h3 { color: var(--gold-l); margin: 20px 0 10px; font-size: 18px; }
+  .answer-card p { margin-bottom: 15px; }
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<section class="hero">
+  <h1 class="hero-title">你的靈魂課題<span class="line2">是什麼?</span></h1>
+  <p>請憑直覺，選出一張最有感覺的牌</p>
+</section>
+
+<section class="pick-section">
+  <div class="cards-row">
+    <div class="tarot-card" onclick="showAnswer('A')"><div class="card-back">A</div></div>
+    <div class="tarot-card" onclick="showAnswer('B')"><div class="card-back">B</div></div>
+    <div class="tarot-card" onclick="showAnswer('C')"><div class="card-back">C</div></div>
+  </div>
+</section>
+
+<div id="answer-container" class="answer-section">
+  <div id="A" class="answer-block" style="display:none;">
+    <div class="answer-card">
+      <h2>🔮 選到 A 組的你：親愛的，你已經夠努力了，別再把所有事都扛在身上。</h2>
+      <h3>✨ ［目前的靈魂狀態］</h3>
+      <p>最近的你，大腦和內心都在「高速運轉」。雖然外在不一定最忙，但你內心總有一股「不滿足感」，覺得自己還不夠好、現況不夠完美。你很累，是那種連身體都隱隱作痛的疲憊，因為你一直在努力解決問題，靈魂正陪著你承擔極大的重量。</p>
+      <h3>🔍 ［深層的盲點］</h3>
+      <p>你很有行動力，也擅長理性分析。你本想掌控大局、找人分擔，但不知不覺中，你又把所有責任拉回自己身上。 你之所以這麼累，是因為你太在乎了——在乎結果、在乎他人看法、在乎未來的變數。這讓你的思考和情緒都停不下來，甚至開始討厭這樣焦慮的自己。</p>
+      <h3>🌱 ［靈魂給你的課題］</h3>
+      <p>你的方向沒有錯，不需要否定自己！需要改變的不是目標，而是你「前進的方式」。 試著停下來分辨：哪些責任是你的？哪些其實不關你的事？ 允許自己卸下不屬於你的包袱。</p>
+      <h3>💌 ［給 A 組的療癒指引］</h3>
+      <p>答案不在外面，就在你心裡。其實答案你早就知道，只是你走得太快、太急，忽略了內心的聲音。請適時放慢腳步，聽聽自己的需求，你會找回內心的踏實感。</p>
+    </div>
+  </div>
+
+  <div id="B" class="answer-block" style="display:none;">
+    <div class="answer-card">
+      <h2>🔮 選到 B 組的你：你的靈魂非常穩定，接下來請守護好你的界線，別被外在打亂節奏。</h2>
+      <h3>✨ ［目前的靈魂狀態］</h3>
+      <p>你處在一種「知道自己要什麼」的穩定豐盛中。你很有原則，不需要依賴外在環境來獲得安全感，即使遇到多個事件同時發生，你也能理出頭緒、一步步累積。你其實走在正確的路上。</p>
+      <h3>🔍 ［深層的盲點與焦慮］</h3>
+      <p>既然很穩定，為什麼還會迷茫？因為你已經努力很久了（不論是事業、學業或關係），面對眼前的短暫停滯，你開始懷疑「到底會不會有結果？」。親愛的，這份擔心是多餘的，你沒有做錯，你只是點到了「等待開花結果」的階段，時機成熟前，請保持耐心。</p>
+      <h3>⚡️ ［接下來的外在考驗］</h3>
+      <p>你接下來的考驗多半來自「別人」。因為你靠譜、能力強，大家很容易把麻煩和爛攤子丟給你，甚至對你產生嫉妒心。 靈魂給你的核心課題是：劃清界線。你可以善良，但不用替別人的錯誤買單。當環境開始消耗你，請學會抽身與保護自己。</p>
+      <h3>💌 ［給 B 組的療癒指引］</h3>
+      <p>答案就在你的節奏裡。未來若遇到突發狀況，別急著否定自己，請回到你的核心價值觀。你的智商與情商都在線，只要不被外界的聲音動搖，持續按照自己的步調走，你擔心的事情最後都會迎刃而解！</p>
+    </div>
+  </div>
+
+  <div id="C" class="answer-block" style="display:none;">
+    <div class="answer-card">
+      <h2>🔮 選到 C 組的你：親愛的，拿回人生主導權吧！真正困住你的，不是能力不足，而是對自己的不信任。</h2>
+      <h3>✨ ［目前的靈魂狀態］</h3>
+      <p>你的靈魂正在跟外界的「權威聲音」進行拉扯。主管、長輩或某個權威女性總在告訴你「該怎麼做」，你雖然表面順從、不吵架，但內心深處其實充滿抗拒，一直在想：「這真的是我要的人生嗎？」</p>
+      <h3>🔍 ［深層的盲點與無力感］</h3>
+      <p>你卡在一個矛盾裡：既不想被安排，但真的要自己做決定時，又因為害怕失敗而優柔寡斷。你其實非常聰明、有實力，但因為長期被壓抑在框架裡，你習慣在行動前先用焦慮和擔憂把自己嚇退，甚至因此錯過了一些能改變命運的好機會。</p>
+      <h3>🌱 ［靈魂給你的課題］</h3>
+      <p>別人的人生經驗只是參考，你的路要自己走！你的靈魂希望你停止「還沒開始就先唱衰自己」的內耗。不是所有未知都代表危險，很多時候，改變是為了帶你成長。</p>
+      <h3>💌 ［給 C 組的療癒指引］</h3>
+      <p>相信自己，並且立刻行動！接下來還會有新的機會、新的領域出現在你的生命中。不要因為害怕失敗而放棄開始，當你願意停止猶豫、勇敢為自己做決定時，你會驚訝地發現，自己原來早就具備掌控大局的實力！</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showAnswer(id) {
+    document.getElementById('answer-container').classList.add('visible');
+    document.querySelectorAll('.answer-block').forEach(el => el.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    window.scrollTo({ top: document.getElementById('answer-container').offsetTop, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
